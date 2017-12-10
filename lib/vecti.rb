@@ -1,4 +1,5 @@
 require "vecti/version"
+require "cmath"
 require "pry"
 
 module Vecti
@@ -44,6 +45,22 @@ module Vecti
       end
 
       Vecti::Vector.new(coordinates: result)
+    end
+
+    def magnitude
+      square_root_array =[]
+
+      self.coordinates.each do |coordinate|
+        square_root_array.push(coordinate ** 2)
+      end
+
+      (CMath.sqrt(square_root_array.inject(:+))).round(3)
+    end
+
+    def normalize
+      magnitude = self.magnitude
+      result    = (1 / magnitude)
+      self.scalar_multiplication(result)
     end
   end
 end
